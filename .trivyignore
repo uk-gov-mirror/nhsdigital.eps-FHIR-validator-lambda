@@ -18,6 +18,7 @@ CVE-2021-35515
 CVE-2021-35516
 CVE-2021-35517
 CVE-2021-36090
+CVE-2026-33180
 # upgrading fasterxml-core to fixed version 2.21.1 appears to not
 # be compatible with 2.19.2 of fasterxml-annotations
 GHSA-72hv-8253-57qq

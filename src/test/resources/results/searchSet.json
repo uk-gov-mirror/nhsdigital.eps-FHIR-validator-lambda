@@ -2391,6 +2391,44 @@
                 "Bundle.entry[4].resource/*Organization/154dcc4a-0006-4272-9758-9dcb8d95ce8b*/",
                 "Line[1] Col[3089]"
             ]
+        },
+        {
+            "extension": [
+                {
+                "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+                "valueInteger": 1
+                },
+                {
+                "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+                "valueInteger": 496
+                }
+            ],
+            "severity": "warning",
+            "code": "processing",
+            "diagnostics": "Constraint failed: dom-6: 'A resource should have narrative for robust management' (defined in http://hl7.org/fhir/StructureDefinition/DomainResource) (Best Practice Recommendation)",
+            "location": [
+                "OperationOutcome",
+                "Line[1] Col[496]"
+            ]
+        },
+        {
+            "extension": [
+                {
+                    "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+                    "valueInteger": 1
+                },
+                {
+                    "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+                    "valueInteger": 496
+                }
+            ],
+            "severity": "warning",
+            "code": "processing",
+            "diagnostics": "Constraint failed: dom-6: 'A resource should have narrative for robust management' (defined in http://hl7.org/fhir/StructureDefinition/DomainResource) (Best Practice Recommendation)",
+            "location": [
+                "OperationOutcome",
+                "Line[1] Col[496]"
+            ]
         }
     ]
 }

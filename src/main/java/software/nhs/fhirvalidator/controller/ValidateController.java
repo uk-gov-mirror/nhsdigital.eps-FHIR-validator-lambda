@@ -11,7 +11,6 @@ import com.google.gson.JsonSyntaxException;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r4.model.Bundle;
 import org.hl7.fhir.r4.model.OperationOutcome;
-import org.hl7.fhir.r4.model.ResourceType;
 import org.hl7.fhir.r4.model.OperationOutcome.OperationOutcomeIssueComponent;
 
 import ca.uhn.fhir.context.FhirContext;
@@ -80,7 +79,8 @@ public class ValidateController {
                 | DataFormatException e) {
             log.error(e.toString());
             return OperationOutcomeUtils
-                    .createOperationOutcome(e.getMessage() != null ? e.getMessage() : "Invalid JSON", null);
+                    .createOperationOutcome((e.getMessage() != null && !(e instanceof NullPointerException))
+                    ? e.getMessage() : "Invalid JSON", null);
         }
     }
 
@@ -101,15 +101,10 @@ public class ValidateController {
         if (inputResource instanceof Bundle _inputResource && (_inputResource.getType() == Bundle.BundleType.SEARCHSET)) {
             List<IBaseResource> bundleResources = new ArrayList<>();
             for (Bundle.BundleEntryComponent entry : ((Bundle) inputResource).getEntry()) {
-                if (entry.getResource().fhirType().equals("Bundle")) {
-                    bundleResources.add(entry.getResource());
-                }
+                bundleResources.add(entry.getResource());
             }
 
-            if (bundleResources.stream()
-                    .allMatch(resource -> ((Bundle) resource).getResourceType() == ResourceType.Bundle)) {
-                return bundleResources;
-            }
+            return bundleResources;
         }
 
         return Arrays.asList(inputResource);
