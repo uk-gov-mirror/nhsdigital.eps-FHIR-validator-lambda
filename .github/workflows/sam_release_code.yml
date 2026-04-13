@@ -45,6 +45,8 @@ on:
       DEV_CLOUD_FORMATION_EXECUTE_LAMBDA_ROLE:
         required: false
 
+permissions: {}
+
 jobs:
   sam_release_code:
     runs-on: ubuntu-22.04
@@ -66,7 +68,7 @@ jobs:
       - name: Checkout local github actions
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
-          ref: ${{ env.BRANCH_NAME }}
+          persist-credentials: false
           fetch-depth: 0
           sparse-checkout: |
             .github
@@ -102,6 +104,7 @@ jobs:
       - name: Checkout gh-pages
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
+          persist-credentials: true
           ref: gh-pages
           path: gh-pages
 

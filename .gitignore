@@ -44,3 +44,4 @@ node_modules/
 vendor
 cfn_guard_output/
 .trivy_out/
+.sbom/

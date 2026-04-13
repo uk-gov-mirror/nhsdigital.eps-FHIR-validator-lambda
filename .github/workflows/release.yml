@@ -3,17 +3,24 @@ name: deploy to environments
 on:
   workflow_dispatch:
 
-env:
-  BRANCH_NAME: ${{ github.event.ref.BRANCH_NAME }}
+permissions: {}
 
 jobs:
   get_config_values:
-    uses: NHSDigital/eps-common-workflows/.github/workflows/get-repo-config.yml@e798d5aee897de6f7dc387dd5623fcd9ba4c8929
+    uses: NHSDigital/eps-common-workflows/.github/workflows/get-repo-config.yml@c8f899f30a6a726859b0277faa73cd9ff7f4de20
+    permissions:
+      attestations: read
+      contents: read
+      packages: read
     with:
       verify_published_from_main_image: true
   quality_checks:
-    uses: NHSDigital/eps-common-workflows/.github/workflows/quality-checks-devcontainer.yml@5ac2707dd9cd60ad127275179495b9c890d74711
+    uses: NHSDigital/eps-common-workflows/.github/workflows/quality-checks-devcontainer.yml@c8f899f30a6a726859b0277faa73cd9ff7f4de20
     needs: [get_config_values]
+    permissions:
+      contents: read
+      id-token: write
+      packages: read
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     with:
@@ -31,10 +38,11 @@ jobs:
 
   tag_release:
     needs: [quality_checks, get_commit_id, get_config_values]
-    uses: NHSDigital/eps-common-workflows/.github/workflows/tag-release-devcontainer.yml@5ac2707dd9cd60ad127275179495b9c890d74711
+    uses: NHSDigital/eps-common-workflows/.github/workflows/tag-release-devcontainer.yml@c8f899f30a6a726859b0277faa73cd9ff7f4de20
     permissions:
       id-token: write
       contents: write
+      packages: write
     with:
       dry_run: false
       pinned_image: ${{ needs.get_config_values.outputs.pinned_image }}
@@ -49,12 +57,19 @@ jobs:
   package_code:
     needs: [tag_release, get_config_values]
     uses: ./.github/workflows/sam_package_code.yml
+    permissions:
+      contents: read
+      id-token: write
+      packages: read
     with:
       pinned_image: ${{ needs.get_config_values.outputs.pinned_image }}
 
   release_dev:
     needs: [tag_release, package_code, get_commit_id, get_config_values]
     uses: ./.github/workflows/sam_release_code.yml
+    permissions:
+      contents: write
+      id-token: write
     with:
       pinned_image: ${{ needs.get_config_values.outputs.pinned_image }}
       ARTIFACT_BUCKET_PREFIX: ${{needs.tag_release.outputs.version_tag}}
@@ -76,6 +91,9 @@ jobs:
   release_ref:
     needs: [tag_release, release_dev, package_code, get_commit_id, get_config_values]
     uses: ./.github/workflows/sam_release_code.yml
+    permissions:
+      contents: write
+      id-token: write
     with:
       pinned_image: ${{ needs.get_config_values.outputs.pinned_image }}
       ARTIFACT_BUCKET_PREFIX: ${{needs.tag_release.outputs.version_tag}}
@@ -93,6 +111,9 @@ jobs:
   release_qa:
     needs: [tag_release, release_dev, package_code, get_commit_id, get_config_values]
     uses: ./.github/workflows/sam_release_code.yml
+    permissions:
+      contents: write
+      id-token: write
     with:
       pinned_image: ${{ needs.get_config_values.outputs.pinned_image }}
       ARTIFACT_BUCKET_PREFIX: ${{needs.tag_release.outputs.version_tag}}
@@ -110,6 +131,9 @@ jobs:
   release_int:
     needs: [tag_release, release_qa, package_code, get_commit_id, get_config_values]
     uses: ./.github/workflows/sam_release_code.yml
+    permissions:
+      contents: write
+      id-token: write
     with:
       pinned_image: ${{ needs.get_config_values.outputs.pinned_image }}
       ARTIFACT_BUCKET_PREFIX: ${{needs.tag_release.outputs.version_tag}}
@@ -131,6 +155,9 @@ jobs:
   release_prod:
     needs: [tag_release, release_int, package_code, get_commit_id, get_config_values]
     uses: ./.github/workflows/sam_release_code.yml
+    permissions:
+      contents: write
+      id-token: write
     with:
       pinned_image: ${{ needs.get_config_values.outputs.pinned_image }}
       ARTIFACT_BUCKET_PREFIX: ${{needs.tag_release.outputs.version_tag}}
