@@ -4,5 +4,5 @@ rules:
       - delete_old_cloudformation_stacks.yml:28:31
   unpinned-images:
     ignore:
-      - sam_release_code.yml:55:7
-      - sam_package_code.yml:15:7
+      - sam_release_code.yml:55:18
+      - sam_package_code.yml:15:18
