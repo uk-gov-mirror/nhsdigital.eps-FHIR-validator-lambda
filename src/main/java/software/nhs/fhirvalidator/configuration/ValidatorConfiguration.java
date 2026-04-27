@@ -31,8 +31,8 @@ import ca.uhn.fhir.validation.FhirValidator;
 import software.nhs.fhirvalidator.models.SimplifierPackage;
 import software.nhs.fhirvalidator.util.ResourceUtils;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is a wrapper around the HAPI FhirValidator.
@@ -46,7 +46,7 @@ public class ValidatorConfiguration {
     public final FhirContext fhirContext;
     public final List<NpmPackage> npmPackages = new ArrayList<>();
 
-    Logger log = LogManager.getLogger(ValidatorConfiguration.class);
+    Logger log = LoggerFactory.getLogger(ValidatorConfiguration.class);
 
     public ValidatorConfiguration(String _PROFILE_MANIFEST_FILE) {
         PROFILE_MANIFEST_FILE = _PROFILE_MANIFEST_FILE;

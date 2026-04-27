@@ -3,8 +3,8 @@ package software.nhs.fhirvalidator.service;
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.parser.IParser;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.fhir.r4.model.*;
 import org.hl7.fhir.utilities.npm.NpmPackage;
 
@@ -16,7 +16,7 @@ public class ImplementationGuideParser {
 
     private final FhirContext fhirContext;
 
-    Logger log = LogManager.getLogger(ImplementationGuideParser.class);
+    Logger log = LoggerFactory.getLogger(ImplementationGuideParser.class);
 
     public ImplementationGuideParser(FhirContext fhirContext) {
         this.fhirContext = fhirContext;

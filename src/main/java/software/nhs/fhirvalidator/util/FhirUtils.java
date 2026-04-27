@@ -3,15 +3,15 @@ package software.nhs.fhirvalidator.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.instance.model.api.IPrimitiveType;
 import org.hl7.fhir.r4.model.Bundle;
 
 public final class FhirUtils {
-    static Logger log = LogManager.getLogger(FhirUtils.class);
+    static Logger log = LoggerFactory.getLogger(FhirUtils.class);
 
     private FhirUtils() {
         throw new IllegalStateException("Utility class");

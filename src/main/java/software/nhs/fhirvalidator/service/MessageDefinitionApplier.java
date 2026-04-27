@@ -1,7 +1,7 @@
 package software.nhs.fhirvalidator.service;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r4.model.*;
 import org.hl7.fhir.utilities.npm.NpmPackage;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class MessageDefinitionApplier {
 
     private final List<MessageDefinition> messageDefinitions;
-    Logger log = LogManager.getLogger(MessageDefinitionApplier.class);
+    Logger log = LoggerFactory.getLogger(MessageDefinitionApplier.class);
 
     public MessageDefinitionApplier(
             ImplementationGuideParser implementationGuideParser,

@@ -1,7 +1,7 @@
 package software.nhs.fhirvalidator.service;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r4.model.CapabilityStatement;
 import org.hl7.fhir.utilities.npm.NpmPackage;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class CapabilityStatementApplier {
     private final List<CapabilityStatement.CapabilityStatementRestResourceComponent> restResources;
 
-    Logger log = LogManager.getLogger(CapabilityStatementApplier.class);
+    Logger log = LoggerFactory.getLogger(CapabilityStatementApplier.class);
 
     public CapabilityStatementApplier(
             ImplementationGuideParser implementationGuideParser,

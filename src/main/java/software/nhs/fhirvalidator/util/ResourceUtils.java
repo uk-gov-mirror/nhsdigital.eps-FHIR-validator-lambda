@@ -4,11 +4,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ResourceUtils {
-    static Logger log = LogManager.getLogger(ResourceUtils.class);
+    static Logger log = LoggerFactory.getLogger(ResourceUtils.class);
 
     private ResourceUtils() {
         throw new IllegalStateException("Utility class");

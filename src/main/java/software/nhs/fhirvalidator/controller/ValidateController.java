@@ -23,8 +23,8 @@ import software.nhs.fhirvalidator.service.ImplementationGuideParser;
 import software.nhs.fhirvalidator.service.MessageDefinitionApplier;
 import software.nhs.fhirvalidator.util.OperationOutcomeUtils;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is a wrapper around the HAPI FhirValidator.
@@ -40,7 +40,7 @@ public class ValidateController {
     private CapabilityStatementApplier capabilityStatementApplier;
     private MessageDefinitionApplier messageDefinitionApplier;
 
-    Logger log = LogManager.getLogger(ValidateController.class);
+    Logger log = LoggerFactory.getLogger(ValidateController.class);
 
     public ValidateController(String PROFILE_MANIFEST_FILE) {
         validatorConfiguration = new ValidatorConfiguration(PROFILE_MANIFEST_FILE);

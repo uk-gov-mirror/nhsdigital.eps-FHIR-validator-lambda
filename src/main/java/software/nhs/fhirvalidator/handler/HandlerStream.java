@@ -11,18 +11,18 @@ import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 
 import software.amazon.lambda.powertools.logging.Logging;
-import software.amazon.lambda.powertools.logging.LoggingUtils;
 import software.nhs.fhirvalidator.controller.ValidateController;
 import software.nhs.fhirvalidator.util.ResourceUtils;
 
 public class HandlerStream implements RequestStreamHandler {
 
     private final ValidateController validateController;
-    Logger log = LogManager.getLogger(HandlerStream.class);
+    Logger log = LoggerFactory.getLogger(HandlerStream.class);
 
     public HandlerStream() {
         log.info("Creating the Validator instance for the first time...");
@@ -55,15 +55,15 @@ public class HandlerStream implements RequestStreamHandler {
             JsonObject jsonPayload = JsonParser.parseString(rawInput).getAsJsonObject();
             JsonObject headers = jsonPayload.get("headers").getAsJsonObject();
             String xRequestID = headers.get("x-request-id") == null ? "" : headers.get("x-request-id").getAsString();
-            LoggingUtils.appendKey("x-request-id", xRequestID);
+            MDC.put("x-request-id", xRequestID);
             String nhsdCorrelationID = headers.get("nhsd-correlation-id") == null ? "" : headers.get("nhsd-correlation-id").getAsString();
-            LoggingUtils.appendKey("nhsd-correlation-id", nhsdCorrelationID);
+            MDC.put("nhsd-correlation-id", nhsdCorrelationID);
             String nhsdRequestID = headers.get("nhsd-request-id") == null ? "" : headers.get("nhsd-request-id").getAsString();
-            LoggingUtils.appendKey("nhsd-request-id", nhsdRequestID);
+            MDC.put("nhsd-request-id", nhsdRequestID);
             String xCorrelationID = headers.get("x-correlation-id") == null ? "" : headers.get("x-correlation-id").getAsString();
-            LoggingUtils.appendKey("x-correlation-id", xCorrelationID);
+            MDC.put("x-correlation-id", xCorrelationID);
             String apigwRequestID = headers.get("apigw-request-id") == null ? "" : headers.get("apigw-request-id").getAsString();
-            LoggingUtils.appendKey("apigw-request-id", apigwRequestID);
+            MDC.put("apigw-request-id", apigwRequestID);
  
             log.info("Calling validate function");
             String validatorResult = validateController.validate(jsonPayload.get("body").toString());
