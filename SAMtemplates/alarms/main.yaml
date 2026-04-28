@@ -44,8 +44,8 @@ Resources:
       TreatMissingData: notBreaching
       ActionsEnabled: !Ref EnableAlerts
       AlarmActions:
-        - !ImportValue lambda-resources:SlackAlertsSnsTopicArn
+        - !ImportValue account-resources-cdk-uk:SNS:SlackAlertsSnsTopicArn:Arn
       InsufficientDataActions:
-        - !ImportValue lambda-resources:SlackAlertsSnsTopicArn
+        - !ImportValue account-resources-cdk-uk:SNS:SlackAlertsSnsTopicArn:Arn
       OKActions:
-        - !ImportValue lambda-resources:SlackAlertsSnsTopicArn
+        - !ImportValue account-resources-cdk-uk:SNS:SlackAlertsSnsTopicArn:Arn

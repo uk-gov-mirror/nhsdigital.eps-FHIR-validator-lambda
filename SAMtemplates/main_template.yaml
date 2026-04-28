@@ -51,9 +51,9 @@ Resources:
       Location: lambda_resources.yaml
       Parameters:
         StackName: !Ref AWS::StackName
-        CloudWatchKMSKey: !ImportValue account-resources:CloudwatchLogsKmsKeyArn
-        SplunkSubscriptionFilterRole: !ImportValue lambda-resources:SplunkSubscriptionFilterRole
-        SplunkDeliveryStream: !ImportValue lambda-resources:SplunkDeliveryStream
+        CloudWatchKMSKey: !ImportValue account-resources-cdk-uk:KMS:CloudwatchLogsKmsKey:Arn
+        SplunkSubscriptionFilterRole: !ImportValue account-resources-cdk-uk:IAM:SplunkSubscriptionFilterRole:Arn
+        SplunkDeliveryStream: !ImportValue laaccount-resources-cdk-uk:Firehose:SplunkDeliveryStream:Arn
         EnableSplunk: "true"
         LambdaName: !Sub "${AWS::StackName}-FHIRValidatorUKCore"
         LambdaArn: !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${AWS::StackName}-FHIRValidatorUKCore
