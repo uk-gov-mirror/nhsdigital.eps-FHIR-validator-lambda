@@ -87,8 +87,8 @@ Resources:
               Service: "lambda.amazonaws.com"
             Action: "sts:AssumeRole"
       ManagedPolicyArns:
-        - !ImportValue lambda-resources:LambdaInsightsLogGroupPolicy
-        - !ImportValue account-resources:LambdaEncryptCloudwatchKMSPolicy
+        - !ImportValue account-resources-cdk-uk:IAM:LambdaInsightsLogGroupPolicy:Arn
+        - !ImportValue account-resources-cdk-uk:IAM:LambdaEncryptCloudwatchKMSPolicy:Arn
 
   LambdaManagedPolicy:
     Type: AWS::IAM::ManagedPolicy
